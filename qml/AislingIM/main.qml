@@ -1,16 +1,11 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: 360
-    height: 360
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
-    MouseArea {
+    width: 300
+    height: 600
+
+    RosterPane {
         anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
+        anchors.margins: 4
     }
 }
