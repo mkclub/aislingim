@@ -6,8 +6,7 @@ Rectangle {
 
     Image {
         id: statusImage
-        anchors.fill: parent
-        anchors.margins: (parent.width - 16) / 2
+        anchors.centerIn: parent
 
         width: 16
         height: 16

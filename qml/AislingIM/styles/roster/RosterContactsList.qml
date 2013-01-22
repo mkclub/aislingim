@@ -58,9 +58,21 @@ Rectangle {
                     }
                 }
 
-                Rectangle {
+                ConnectionState {
+                    id: rosterStatus
+
+                    anchors.top: parent.top
                     anchors.left: rosterAvatar.right
-                    anchors.leftMargin: 16
+                    anchors.margins: 3
+
+                    height: 24
+                    width: 24
+                    state: "dnd";
+                }
+
+                Rectangle {
+                    anchors.left: rosterStatus.right
+                    anchors.leftMargin: 4
                     anchors.top: parent.top
                     anchors.topMargin: 8
 
