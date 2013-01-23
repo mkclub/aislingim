@@ -3,37 +3,37 @@ import QtQuick 2.0
 ListModel {
     ListElement {
         contact: "#linux";
-        online: "conf";
+        online: "offline";
         status: ""
         group: "Conferences";
     }
     ListElement {
         contact: "#uanime";
-        online: "conf";
+        online: "offline";
         status: ""
         group: "Conferences";
     }
     ListElement {
         contact: "debian @ jabber.ru";
-        online: "conf";
+        online: "online";
         status: ""
         group: "Conferences";
     }
     ListElement {
         contact: "devel @ jabber.ru";
-        online: "conf";
+        online: "online";
         status: ""
         group: "Conferences";
     }
     ListElement {
         contact: "freebsd @ jabber.ru";
-        online: "conf";
+        online: "offline";
         status: ""
         group: "Conferences";
     }
     ListElement {
         contact: "mkclub";
-        online: "conf";
+        online: "online";
         status: ""
         group: "Conferences";
     }
@@ -47,19 +47,19 @@ ListModel {
     }
     ListElement {
         contact: "Ferrozer";
-        online: "available";
+        online: "online";
         status: ""
         group: "MK Club";
     }
     ListElement {
         contact: "Jolly Roger";
-        online: "available";
-        status: ""
+        online: "online";
+        status: "маленький бункер край села"
         group: "MK Club";
     }
     ListElement {
         contact: "RST";
-        online: "available";
+        online: "dnd";
         status: ""
         group: "MK Club";
     }
@@ -71,7 +71,7 @@ ListModel {
     }
     ListElement {
         contact: "Tonyven";
-        online: "available";
+        online: "offline";
         status: ""
         group: "MK Club";
     }
@@ -79,7 +79,7 @@ ListModel {
     // uanime
     ListElement {
         contact: "shannar";
-        online: "available";
+        online: "dnd";
         status: "=_="
         group: "UAnime";
     }

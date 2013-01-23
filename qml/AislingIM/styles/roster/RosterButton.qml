@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: button_shape
@@ -13,7 +14,6 @@ Rectangle {
     // color and shape
     border.color: "#ddd"
     border.width: 1
-    color: "#fff"
 
     anchors.top: parent.top
     width: parent.width / 2
@@ -47,16 +47,25 @@ Rectangle {
         onClicked: button_shape.clicked()
     }
 
+    ColorOverlay {
+        id: button_shader;
+        source: iconImage;
+        anchors.fill: iconImage;
+        color: "transparent"
+    }
+
     states: [
         State {
              name: "normal"
 
-             PropertyChanges { target: buttonCaption; color: "#000" }
+             PropertyChanges { target: button_shader; color: "transparent" }
+             PropertyChanges { target: buttonCaption; color: "transparent" }
         },
         State {
              name: "active"
              when: mouseArea.containsMouse
 
+             PropertyChanges { target: button_shader; color: "#00A9DC" }
              PropertyChanges { target: buttonCaption; color: "#0099CC" }
         }
     ]

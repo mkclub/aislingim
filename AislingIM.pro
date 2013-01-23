@@ -21,4 +21,5 @@ qtcAddDeployment()
 
 OTHER_FILES += \
     qml/AislingIM/styles/roster/RosterIcon.qml \
-    qml/AislingIM/RosterPane.qml
+    qml/AislingIM/RosterPane.qml \
+    qml/AislingIM/styles/roster/RosterContactsItem.qml

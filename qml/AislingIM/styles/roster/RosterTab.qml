@@ -5,6 +5,7 @@ Rectangle {
 
     property string caption
     property string icon
+    property bool active: false
 
     // behavior
     signal clicked

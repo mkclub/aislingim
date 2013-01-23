@@ -88,7 +88,7 @@ Rectangle {
                 id: contactsSwitch
                 caption: "Contacts"
                 icon: "../../images/person.png"
-                state: "active"
+                active: true
 
                 anchors.left: parent.left
             }
