@@ -3,8 +3,6 @@ import QtQuick 2.0
 // The delegate for each section header
 Rectangle {
     id: rosterItem
-    anchors.left: parent.left
-    anchors.leftMargin: 4
 
     width: ListView.view.width
     height: 40
@@ -22,10 +20,13 @@ Rectangle {
 
     Rectangle {
         id: rosterAvatar
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.margins: 4
+        anchors {
+            top: parent.top
+            bottom: parent.bottom
+            left: parent.left
+            margins: 4
+            leftMargin: 8
+        }
 
         width: 32
         border.width: 1
