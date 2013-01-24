@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtDesktop 1.0
 
 import "../../components"
 
@@ -8,6 +9,7 @@ Rectangle {
 
     ListView {
         id: rosterContactListView
+        anchors.fill: parent
         anchors.margins: 1
         model: rosterModel
         delegate: RosterContactsItem {}

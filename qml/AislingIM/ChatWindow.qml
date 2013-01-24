@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "styles/chat"
+import "models"
 
 Rectangle {
     width: 400
@@ -101,7 +102,6 @@ Rectangle {
 
     Rectangle {
         id: chatScreen
-
         anchors {
             top: userPane.bottom
             topMargin: 4
@@ -174,19 +174,95 @@ Rectangle {
         }
 
         ChatMessageList {
+            id: chatMessageList
             anchors {
                 top: actionsPane.bottom
                 bottom: messagePane.top
             }
 
             width: parent.width
+            messageModel: MessageListModel {}
         }
 
         Rectangle {
             id: messagePane
             anchors.bottom: parent.bottom
             width: parent.width
-            height: 32
+            height: 56
+
+
+            function sendMessage() {
+                if (chatMessageEdit.text.toString() != "") {
+                    var isLast = chatMessageList.isLast()
+                    chatMessageList.messageModel.append({
+                                            sender: "Sergii Gulenok",
+                                            message: chatMessageEdit.text,
+                                            time: (new Date()).toLocaleTimeString()
+                                        })
+                    chatMessageEdit.text = ""
+                    chatMessageList.update(isLast)
+                }
+            }
+
+            Rectangle {
+                id: chatMessageEditHolder
+                anchors {
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                    margins: 4
+                    leftMargin: (parent.width - width) / 2
+                }
+
+                width:
+                    if (parent.width > 600 ) parent.width - 200
+                    else parent.width - 128
+
+                border.width: 1
+                border.color: "#ccc"
+
+                TextEdit {
+                    id: chatMessageEdit
+                    anchors.fill: parent
+                    anchors.margins: 4
+
+                    textFormat: TextEdit.AutoText
+                    renderType: Text.NativeRendering
+                    wrapMode: TextEdit.WordWrap
+                    selectByMouse: true
+
+                    Keys.onReturnPressed:
+                        if (event.modifiers & (Qt.ShiftModifier | Qt.AltModifier | Qt.ControlModifier))
+                            event.accepted = false
+                        else
+                            messagePane.sendMessage()
+                }
+            }
+
+            Rectangle {
+                anchors.left: chatMessageEditHolder.right
+                anchors.top: parent.top
+                anchors.margins: 4
+                width: 48
+                height: 24
+                color: "transparent"
+
+                border.width: 1
+                border.color: "#ccc"
+                radius: 12
+
+                Text {
+                    anchors.centerIn: parent
+                    text: "Send"
+                    renderType: Text.NativeRendering
+                    font.bold: true
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: messagePane.sendMessage()
+                }
+            }
         }
     }
 }
