@@ -32,6 +32,8 @@ Rectangle {
     }
 
     function isLast() {
+        console.log(scrollArea.contentY)
+        console.log(scrollArea.contentHeight - scrollArea.height)
         return scrollArea.contentY >= scrollArea.contentHeight - scrollArea.height
     }
 }

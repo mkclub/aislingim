@@ -11,9 +11,7 @@ Rectangle {
     Rectangle {
         id: actionsPane
 
-        anchors {
-            top: parent.top
-        }
+        anchors.top: parent.top
         border.color: "#ccc"
         border.width: 1
 
@@ -95,9 +93,8 @@ Rectangle {
     Rectangle {
         id: messagePane
         anchors.bottom: parent.bottom
+        height: chatMessageEdit.height + 8
         width: parent.width
-        height: 56
-
 
         function sendMessage() {
             var message = chatMessageEdit.text.toString();
@@ -116,36 +113,45 @@ Rectangle {
 
         Rectangle {
             id: chatMessageEditHolder
+
             anchors {
-                top: parent.top
                 bottom: parent.bottom
                 left: parent.left
+                leftMargin: (parent.width - width) / 2 - 4
                 margins: 4
-                leftMargin: (parent.width - width) / 2
             }
 
             width:
                 if (parent.width > 600 ) parent.width - 188
                 else parent.width - 128
 
+            height: chatMessageEdit.height + 2
+
             border.width: 1
             border.color: "#ccc"
 
-            TextEdit {
+            ResizableEditArea {
                 id: chatMessageEdit
-                anchors.fill: parent
-                anchors.margins: 4
+                frame: false
+                highlightOnFocus: true
 
-                textFormat: TextEdit.AutoText
-                renderType: Text.NativeRendering
-                wrapMode: TextEdit.WordWrap
-                selectByMouse: true
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    margins: 1
+                }
 
-                Keys.onReturnPressed:
-                    if (event.modifiers & (Qt.ShiftModifier | Qt.AltModifier | Qt.ControlModifier))
-                        event.accepted = false
+                height:
+                    if (paintedHeight < 48)
+                        48
+                    else if (paintedHeight > 244)
+                        244
                     else
-                        messagePane.sendMessage()
+                        paintedHeight + 10
+
+                onSubmit: messagePane.sendMessage()
+                onHeightChanged: chatMessageList.update(chatMessageList.isLast())
             }
         }
 
