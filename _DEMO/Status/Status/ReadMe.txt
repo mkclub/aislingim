@@ -1,7 +1,10 @@
-Flat login app that logins with specified login and password to the specified server.
- Used resources: 
-  - Login sequence as it is described on https://developers.google.com/talk/libjingle/login
-  - "call" project from libjingle source.
+Demo that illustrates all necessary steps to do except for SignIn to appear for other users as online user.
+Based on call application.
+
+After running this demo and specifying correct credentials, you should see tons of XML,
+ending with presense information from all your online-contacts. 
+
+Check out other client, you should be online from here as well.
 
 To make this app work, please, put 
 expat.lib

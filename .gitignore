@@ -7,3 +7,14 @@ Debug
 Release
 
 ipch
+
+*.suo
+
+/_DEMO/SignIn/SignIn/libjingle/lib
+
+/_DEMO/Status/Status/libjingle/lib
+
+*.user
+*.filters
+
+*.sdf
