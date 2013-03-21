@@ -18,3 +18,5 @@ ipch
 *.filters
 
 *.sdf
+
+/_DEMO/Roster/Roster/libjingle/lib
