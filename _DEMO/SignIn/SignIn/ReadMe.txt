@@ -7,7 +7,9 @@ To make this app work, please, put
 expat.lib
 libjingle.lib
 
-from libjingle to the SignIn\libjingle\lib
+from libjingle project directory (trunk\build\[Release|Debug]\lib) 
+to the libjingle\lib inside this project 
+or to aislingim\libjingle_libs\[Debug | Release] (it will be copied the mentioned above folder in pre-build event).
 
 after that everything should build as usually (if you put release version of libs, build release, debug -- build debug).
 

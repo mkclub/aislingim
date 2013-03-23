@@ -44,7 +44,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	if(logInputOutput)
 		client.setLogListener(log, nullptr);
 
-
 	//
 	// Trying to log in.
 	//

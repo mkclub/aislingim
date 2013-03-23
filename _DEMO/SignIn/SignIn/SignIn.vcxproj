@@ -53,7 +53,30 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>IF NOT EXIST libjingle\lib\ mkdir libjingle\lib
+IF EXIST libjingle\lib\expat.lib goto Libjingle
+IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\expat.lib goto ExpatNotFound
+copy /Y ..\..\..\libjingle_libs\$(Configuration)\expat.lib libjingle\lib\expat.lib
+
+:Libjingle
+IF EXIST libjingle\lib\libjingle.lib goto exit
+IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib goto LibjingleFound
+copy /Y ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib libjingle\lib\libjingle.lib
+
+goto exit
+
+:ExpatNotFound
+echo "expat.lib not found in libjingle\lib\ and libjingle_libs folder."
+exit(1)
+:LibjingleFound
+echo "libjingle.lib not found in libjingle\lib\ and libjingle_libs folder."
+exit(2)
+
+:exit</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,6 +107,28 @@
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
+    <PreBuildEvent>
+      <Command>IF NOT EXIST libjingle\lib\ mkdir libjingle\lib
+IF EXIST libjingle\lib\expat.lib goto Libjingle
+IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\expat.lib goto ExpatNotFound
+copy /Y ..\..\..\libjingle_libs\$(Configuration)\expat.lib libjingle\lib\expat.lib
+
+:Libjingle
+IF EXIST libjingle\lib\libjingle.lib goto exit
+IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib goto LibjingleFound
+copy /Y ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib libjingle\lib\libjingle.lib
+
+goto exit
+
+:ExpatNotFound
+echo "expat.lib not found in libjingle\lib\ and libjingle_libs folder."
+exit(1)
+:LibjingleFound
+echo "libjingle.lib not found in libjingle\lib\ and libjingle_libs folder."
+exit(2)
+
+:exit</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
