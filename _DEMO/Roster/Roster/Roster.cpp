@@ -71,7 +71,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	_getch();
 
-	//	client.shutdown();//because of some unknown to me reason, this does not work (cause access violation).
+	//	client.shutdown();//TODO: because of some unknown to me reason, this does not work (causes access violation).
 	return 0;
 }
 

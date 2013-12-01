@@ -14,6 +14,7 @@
     <ProjectGuid>{87087556-70A5-44EB-90E2-3FF63ECAA443}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Status</RootNamespace>
+    <ProjectName>02_Status</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -54,29 +55,11 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>IF NOT EXIST libjingle\lib\ mkdir libjingle\lib
-IF EXIST libjingle\lib\expat.lib goto Libjingle
-IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\expat.lib goto ExpatNotFound
-copy /Y ..\..\..\libjingle_libs\$(Configuration)\expat.lib libjingle\lib\expat.lib
-
-:Libjingle
-IF EXIST libjingle\lib\libjingle.lib goto exit
-IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib goto LibjingleFound
-copy /Y ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib libjingle\lib\libjingle.lib
-
-goto exit
-
-:ExpatNotFound
-echo "expat.lib not found in libjingle\lib\ and libjingle_libs folder."
-exit(1)
-:LibjingleFound
-echo "libjingle.lib not found in libjingle\lib\ and libjingle_libs folder."
-exit(2)
-
-:exit</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -94,29 +77,11 @@ exit(2)
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>IF NOT EXIST libjingle\lib\ mkdir libjingle\lib
-IF EXIST libjingle\lib\expat.lib goto Libjingle
-IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\expat.lib goto ExpatNotFound
-copy /Y ..\..\..\libjingle_libs\$(Configuration)\expat.lib libjingle\lib\expat.lib
-
-:Libjingle
-IF EXIST libjingle\lib\libjingle.lib goto exit
-IF NOT EXIST ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib goto LibjingleFound
-copy /Y ..\..\..\libjingle_libs\$(Configuration)\libjingle.lib libjingle\lib\libjingle.lib
-
-goto exit
-
-:ExpatNotFound
-echo "expat.lib not found in libjingle\lib\ and libjingle_libs folder."
-exit(1)
-:LibjingleFound
-echo "libjingle.lib not found in libjingle\lib\ and libjingle_libs folder."
-exit(2)
-
-:exit</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -204,10 +169,6 @@ exit(2)
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="libjingle\lib\expat.lib" />
-    <Library Include="libjingle\lib\libjingle.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

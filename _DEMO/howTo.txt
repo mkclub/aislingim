@@ -3,13 +3,16 @@
 2)	Linker: Input: Additional Dependencies:
 	wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;%(AdditionalDependencies)
 
-3) Include necessary libjingle libs
+3) Include necessary libjingle libs (e.g., including into the project OR adding to 
+	Linker: Input: Additional Dependencies:
+		..\..\..\libjingle_libs\$(Configuration)\libjingle.lib
+		..\..\..\libjingle_libs\$(Configuration)\expat.lib)
 
 you can put all (at least -- necessary) libs to the aislingim\libjingle_libs\[Debug | Release] 
 (Debug for debug libs and Release for release libs, 
 e.g. aislingim\libjingle_libs\Release\libjingle.lib for release version of libjingle lib.)
 
-and all applications will try to resolve necessary dependencies from this folder in pre-build event.
+and all applications will try to resolve necessary dependencies from this folder.
 
 4) Include necessary libjingle headers.
 	Necessary header files can be collected with the help of HeaderCollector app (requires .NET).

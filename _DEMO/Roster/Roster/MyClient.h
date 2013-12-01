@@ -69,8 +69,8 @@ private:
 	bool useTls_;
 	volatile bool isLoggedIn_;//still not sure if c++ -volatile is helping to make memory barrier...
 
-	HANDLE asyncThread_;
-	volatile HANDLE loginSignalObject_;
+	HANDLE asyncThread_;				//TODO: windows dependency.
+	volatile HANDLE loginSignalObject_;	//TODO: windows dependency.
 
 	buzz::PresenceOutTask* presenceOutTask_;
 	buzz::PresencePushTask* presencePushTask_;

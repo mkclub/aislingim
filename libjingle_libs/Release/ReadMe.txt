@@ -1,1 +1,1 @@
-Put here DEBUG versions of necessary libs and they will be copied to the correct places in pre-build of each project in aislingim.
+Put here DEBUG versions of necessary libs and they will be used by each project in aislingim.

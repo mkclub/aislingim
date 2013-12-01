@@ -68,7 +68,7 @@ void MyClient::loginAsync()
 	//else
 		//cout<<"Created event "<<(int)loginSignalObject_<<" On thread "<<GetCurrentThreadId()<<endl;
 
-	DWORD ThreadID;
+	DWORD ThreadID;																					//TODO: windows dependency.
 	asyncThread_ = CreateThread(NULL,0, (LPTHREAD_START_ROUTINE)loginAsyncHelper, this,0,&ThreadID);//TODO: windows dependency.
 }
 
@@ -138,7 +138,7 @@ void MyClient::login()
 
 
 void MyClient::cancelLoginAsync()
-{
+{	//TODO: windows dependency. everywhere.
 	if(asyncThread_ != nullptr)
 	{
 		// looks like we need some minimum delay or sync, 
@@ -162,10 +162,10 @@ bool MyClient::waitLogin(int loginTimeout)
 		return isLoggedIn_;// either we did not started login yet or already logged in.
 
 	//cout<<"== WAITING ON "<<(int)loginSignalObject_<<" On thread "<<GetCurrentThreadId()<<endl;
-	DWORD res = WaitForSingleObject(loginSignalObject_,loginTimeout);
+	DWORD res = WaitForSingleObject(loginSignalObject_,loginTimeout);//TODO: windows dependency.
 	//cout<<"== WAITING FINISHED."<<" On thread "<<GetCurrentThreadId()<<endl;
 
-	return res == WAIT_OBJECT_0;
+	return res == WAIT_OBJECT_0;//TODO: windows dependency.
 }
 
 //----------------------------------OTHER METHODS ---------------------------------------
@@ -287,15 +287,15 @@ void MyClient::connectionStateChanged(buzz::XmppEngine::State state)
 		//cout<<"SIGNALLING AND CLOSING HANDLE. STATE = " <<state<<endl;
 		
 		//saving our handle here as we're going to signal on it now and noone knows what will happen to original one...
-		HANDLE ourHandle = loginSignalObject_;
+		HANDLE ourHandle = loginSignalObject_;			//TODO: windows dependency.
 		loginSignalObject_ = nullptr;
 
 		//cout<<"SIGNALLING... "<<(int)ourHandle<<" On thread "<<GetCurrentThreadId()<<endl;
-		if(!SetEvent(ourHandle))
+		if(!SetEvent(ourHandle))						//TODO: windows dependency.
 			cout<<"FAILED TO SET EVENT!";
 
 		//cout<<"DONE. CLOSING..."<<(int)ourHandle<<endl;
-		if(!CloseHandle(ourHandle))
+		if(!CloseHandle(ourHandle))						//TODO: windows dependency.
 			cout<<"FAILED TO CLOSE HANDLE!";
 
 		//cout<<"HANLDE CLOSED."<<endl;
@@ -324,7 +324,7 @@ void MyClient::contactStatusChanged(const buzz::PresenceStatus& status)
 	string jid = status.jid().node() + "@" + status.jid().domain() +"/" +status.jid().resource()+"("+to_string((long long)status.priority())+")";
 	STATUS_ENUM statusEnum = OFFLINE;
 
-	// all these enums... we should decice what to do with them or create some helper methods...
+	// TODO: all these enums... we should decice what to do with them or create some helper methods...
 	switch(status.show())
 	{
 		case buzz::PresenceStatus::SHOW_OFFLINE:
