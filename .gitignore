@@ -6,6 +6,8 @@ Debug
 
 Release
 
+AislingIM-build-*
+
 ipch
 
 *.suo
