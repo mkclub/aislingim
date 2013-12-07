@@ -1,18 +1,16 @@
-/* Demo app that allows to login and see changing list of contacts with actual statuses.
-	Used resources: 
-		- "call" project from libjingle source.
-		- http://msdn.microsoft.com/en-us/library/windows/desktop/ms686915(v=vs.85).aspx
-*/
-
+// Messaging.cpp : Defines the entry point for the console application.
+//
 #include "stdafx.h"
 #include <conio.h>
 
-#include "Utils.h"	//additional utility method(s)
+#include "Utils.h"
 #include "MyClient.h"
+
 
 void log(void*, string msg);
 void loginStatusListener(void* , buzz::XmppEngine::State state);
 void statusEvent(void* context, string jid, STATUS_ENUM status);
+void messageEvent(void* context, const Message& message);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -38,9 +36,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	// Configuring client class
 	//
 	MyClient client(hostname, port, jidString, passwordString, useTls); 
+	client.setResourceName("MessagingDemo");
+
 	client.setLoginListener(&loginStatusListener, nullptr);
 	client.setOthersStatusListener(&statusEvent, nullptr);
-	client.setResourceName("RosterDemo");
+	client.setMessageListener(&messageEvent, nullptr);
 	if(logInputOutput)
 		client.setLogListener(log, nullptr);
 
@@ -58,20 +58,21 @@ int _tmain(int argc, _TCHAR* argv[])
 		client.waitLogin(loginTimeout);//can use polling as well (just checking isLoggedIn method)
 	}
 
-	cout<<"Setting status...";
-	string statusMessage = "Testing roster retrieval.";
-	STATUS_ENUM status = ONLINE;
+	cout<<"Setting status... ";
+	string statusMessage = "Send me a message!";
+	STATUS_ENUM status = FREE_FOR_CHAT;
 	if(!client.setStatus(status, statusMessage))
 		cout<<"failed to set status."<<endl;
 	else
 		cout<<" done."<<endl;
 
-	cout<<"     ----=== COMPLETE. NOW YOU CAN SEE ACTUAL CONTACTS STATUS. ===----"<<endl
+	cout<<"     ----=== COMPLETE. NOW YOU SHOULD SEE NEW INCOMING MESSAGES. ===----"<<endl
 		<<"PRESS ANY KEY TO SHUTDOWN THIS ALL STUFF."<<endl;
 
 	_getch();
 
 	client.shutdown();
+	Sleep(1000);
 	return 0;
 }
 
@@ -82,8 +83,6 @@ void log(void*, string msg)
 
 void loginStatusListener(void* clientObj, buzz::XmppEngine::State state)
 {
-	MyClient* client = (MyClient*)clientObj;
-
 	switch (state) 
 		{
 			case buzz::XmppEngine::STATE_START:
@@ -103,7 +102,7 @@ void loginStatusListener(void* clientObj, buzz::XmppEngine::State state)
 				break;
 
 			default:
-				cout<<"UNKNOWN STATE."<<(int)state<<endl;
+				cout<<"UNKNOWN STATE:"<<(int)state<<endl;
 		}
 }
 
@@ -137,3 +136,13 @@ void statusEvent(void* context, string jid, STATUS_ENUM status)
 	cout<<"ROSTER: "<<jid<<" :\t"<<statusString<<endl;
 }
 
+void messageEvent(void* context, const Message& message)
+{
+	cout<<"MESSAGE ("<<message.getId()<<") RECEIVED:"<<endl
+		<<"  FROM: "<<message.getFrom()<<endl
+		<<"  TO: "<<message.getTo()<<endl;
+
+	if(message.getSubject() != "")
+		cout<<"  SUBJECT: "<<message.getSubject()<<endl;
+	cout<<"  TEXT: "<<message.getBody()<<endl;
+}

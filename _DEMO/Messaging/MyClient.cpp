@@ -11,12 +11,16 @@
 MyClient::MyClient(string hostname, int port, string jid, string password, bool useTls):
 hostname_(hostname), port_(port), jid_(jid), password_(password), useTls_(useTls_),isLoggedIn_(false),
 	asyncThread_(nullptr), logListener_(nullptr), logContext_(nullptr), loginListener_(nullptr), loginCotext_(nullptr),statusListener_(nullptr), statusListenerContext_(nullptr),
-	loginSignalObject_(nullptr),presenceOutTask_(nullptr),presencePushTask_(nullptr)
+	loginSignalObject_(nullptr),presenceOutTask_(nullptr),presencePushTask_(nullptr),main_thread_(nullptr),messageReceiverTask_(nullptr),
+	messageListenerContext_(nullptr),messageListener_(nullptr)
 {
 }
 
 MyClient::~MyClient()
 {
+	if(isLoggedIn_)
+		shutdown();
+
 	if(loginSignalObject_ != nullptr)
 	{
 		CloseHandle(loginSignalObject_);
@@ -26,6 +30,7 @@ MyClient::~MyClient()
 	//TODO: why we get access violation here? maybe we should not delete them?
 	//delete presenceOutTask_;
 	//delete presencePushTask_;
+	//delete messageReceiverTask_;
 }
 
 void MyClient::setLogListener(LogEvent logListener, void* context)
@@ -45,6 +50,12 @@ void MyClient::setOthersStatusListener(StatusEvent statusListener, void* context
 {
 	statusListener_ = statusListener;
 	statusListenerContext_ = context;
+}
+
+void MyClient::setMessageListener(MessageEvent messageListener, void* context)
+{
+	messageListener_ = messageListener;
+	messageListenerContext_ = context;
 }
 
 //----------------------------------------LOGIN STUFF-----------------------------------------------------
@@ -114,6 +125,7 @@ void MyClient::login()
 	pump.client()->SignalStateChange.connect(this, &MyClient::connectionStateChanged);
 	pump.client()->SignalLogInput.connect(this, &MyClient::log);
 	pump.client()->SignalLogOutput.connect(this, &MyClient::log);
+
 	
 	//
 	// LOGGING IN
@@ -125,7 +137,8 @@ void MyClient::login()
 	
 	// ========= 4. Send the sign in request. =========
 	//cout<<"Logging in... "<<endl;
-			
+	
+
 	pump.DoLogin(xcs, new XmppSocket(buzz::TLS_REQUIRED), new XmppAuth());
 
 	// ========= 6. Start the thread and run indefinitely. =========
@@ -203,6 +216,7 @@ bool MyClient::setStatus(STATUS_ENUM status, string statusMessage)
 			break;
 	}
 	
+	//TODO: decide on capabilities.
 	buzzStatus_.set_nick("nick");//WTF? noone sets this. (maybe for MUC?)
 	buzzStatus_.set_caps_node("capsNode");//WTF?
 	buzzStatus_.set_priority(10);
@@ -232,9 +246,14 @@ void MyClient::shutdown()
 {
 	if(!isLoggedIn_)
 		return;
-	if(xmppClient_ != nullptr)
+
+	if(main_thread_ != nullptr)
+	{
 		main_thread_->Quit();
-		//xmppClient_->Disconnect();//TODO: this method does not work. needs futher investigation. Throws AccessViolation.
+		isLoggedIn_ = false;
+	}
+	else
+		cout<<"Failed to shutdown: application is not completely initialized."<<endl;
 }
 
 //-------------------------------------------------PRIVATE FUNCTIONS---------------------------------
@@ -275,8 +294,15 @@ void MyClient::connectionStateChanged(buzz::XmppEngine::State state)
 			//
 			presencePushTask_ = new buzz::PresencePushTask(xmppClient_);
 			presencePushTask_->SignalStatusUpdate.connect(this, &MyClient::contactStatusChanged);
-
 			presencePushTask_->Start();
+
+			//
+			// Task to receive incoming messages
+			//
+			bool printReceivedMessageProcess = false; // determines if we print to console how we process messages.
+			messageReceiverTask_ = new MessageReceiverTask(xmppClient_, printReceivedMessageProcess);
+			messageReceiverTask_->onMessage(this, &MyClient::messageReceived);
+			messageReceiverTask_->Start();
 		}
 	}
 	
@@ -291,6 +317,7 @@ void MyClient::connectionStateChanged(buzz::XmppEngine::State state)
 		//saving our handle here as we're going to signal on it now and noone knows what will happen to original one...
 		HANDLE ourHandle = loginSignalObject_;			//TODO: windows dependency.
 		loginSignalObject_ = nullptr;
+
 		if(ourHandle != nullptr)
 		{
 			//cout<<"SIGNALLING... "<<(int)ourHandle<<" On thread "<<GetCurrentThreadId()<<endl;
@@ -359,4 +386,8 @@ void MyClient::contactStatusChanged(const buzz::PresenceStatus& status)
 	statusListener_(statusListenerContext_,jid, statusEnum);
 }
 
-
+void MyClient::messageReceived(const Message& message)
+{
+	if(messageListener_ != nullptr)
+		messageListener_(messageListenerContext_, message);
+}

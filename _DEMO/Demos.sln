@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SignIn", "SignIn\SignIn\SignIn.vcxproj", "{5F0BE237-C970-4ACD-B144-F5FCA55F2C1B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_SignIn", "SignIn\SignIn\SignIn.vcxproj", "{5F0BE237-C970-4ACD-B144-F5FCA55F2C1B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Status", "Status\Status\Status.vcxproj", "{87087556-70A5-44EB-90E2-3FF63ECAA443}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_Status", "Status\Status\Status.vcxproj", "{87087556-70A5-44EB-90E2-3FF63ECAA443}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Roster", "Roster\Roster\Roster.vcxproj", "{B69CC686-4E78-4C7F-BCE6-2151FA3BF93C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_Roster", "Roster\Roster\Roster.vcxproj", "{B69CC686-4E78-4C7F-BCE6-2151FA3BF93C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Messaging", "Messaging\Messaging.vcxproj", "{E98AFD68-1E59-432A-8A46-792F2CC35C95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{B69CC686-4E78-4C7F-BCE6-2151FA3BF93C}.Debug|Win32.Build.0 = Debug|Win32
 		{B69CC686-4E78-4C7F-BCE6-2151FA3BF93C}.Release|Win32.ActiveCfg = Release|Win32
 		{B69CC686-4E78-4C7F-BCE6-2151FA3BF93C}.Release|Win32.Build.0 = Release|Win32
+		{E98AFD68-1E59-432A-8A46-792F2CC35C95}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E98AFD68-1E59-432A-8A46-792F2CC35C95}.Debug|Win32.Build.0 = Debug|Win32
+		{E98AFD68-1E59-432A-8A46-792F2CC35C95}.Release|Win32.ActiveCfg = Release|Win32
+		{E98AFD68-1E59-432A-8A46-792F2CC35C95}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

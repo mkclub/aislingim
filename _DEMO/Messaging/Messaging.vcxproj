@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E98AFD68-1E59-432A-8A46-792F2CC35C95}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Messaging</RootNamespace>
+    <ProjectName>04_Messaging</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libjingle\base\basictypes.h" />
+    <ClInclude Include="libjingle\base\common.h" />
+    <ClInclude Include="libjingle\base\constructormagic.h" />
+    <ClInclude Include="libjingle\base\scoped_ptr.h" />
+    <ClInclude Include="libjingle\base\sigslot.h" />
+    <ClInclude Include="libjingle\base\stringutils.h" />
+    <ClInclude Include="libjingle\base\task.h" />
+    <ClInclude Include="libjingle\base\taskparent.h" />
+    <ClInclude Include="libjingle\base\win32.h" />
+    <ClInclude Include="libjingle\talk\base\asyncsocket.h" />
+    <ClInclude Include="libjingle\talk\base\basicdefs.h" />
+    <ClInclude Include="libjingle\talk\base\basictypes.h" />
+    <ClInclude Include="libjingle\talk\base\buffer.h" />
+    <ClInclude Include="libjingle\talk\base\bytebuffer.h" />
+    <ClInclude Include="libjingle\talk\base\byteorder.h" />
+    <ClInclude Include="libjingle\talk\base\common.h" />
+    <ClInclude Include="libjingle\talk\base\constructormagic.h" />
+    <ClInclude Include="libjingle\talk\base\criticalsection.h" />
+    <ClInclude Include="libjingle\talk\base\cryptstring.h" />
+    <ClInclude Include="libjingle\talk\base\helpers.h" />
+    <ClInclude Include="libjingle\talk\base\ipaddress.h" />
+    <ClInclude Include="libjingle\talk\base\linked_ptr.h" />
+    <ClInclude Include="libjingle\talk\base\messagedigest.h" />
+    <ClInclude Include="libjingle\talk\base\messagehandler.h" />
+    <ClInclude Include="libjingle\talk\base\messagequeue.h" />
+    <ClInclude Include="libjingle\talk\base\network.h" />
+    <ClInclude Include="libjingle\talk\base\packetsocketfactory.h" />
+    <ClInclude Include="libjingle\talk\base\proxyinfo.h" />
+    <ClInclude Include="libjingle\talk\base\ratetracker.h" />
+    <ClInclude Include="libjingle\talk\base\scoped_ptr.h" />
+    <ClInclude Include="libjingle\talk\base\scoped_ref_ptr.h" />
+    <ClInclude Include="libjingle\talk\base\sigslot.h" />
+    <ClInclude Include="libjingle\talk\base\socket.h" />
+    <ClInclude Include="libjingle\talk\base\socketaddress.h" />
+    <ClInclude Include="libjingle\talk\base\socketfactory.h" />
+    <ClInclude Include="libjingle\talk\base\socketserver.h" />
+    <ClInclude Include="libjingle\talk\base\ssladapter.h" />
+    <ClInclude Include="libjingle\talk\base\sslfingerprint.h" />
+    <ClInclude Include="libjingle\talk\base\sslidentity.h" />
+    <ClInclude Include="libjingle\talk\base\stringencode.h" />
+    <ClInclude Include="libjingle\talk\base\stringutils.h" />
+    <ClInclude Include="libjingle\talk\base\task.h" />
+    <ClInclude Include="libjingle\talk\base\taskparent.h" />
+    <ClInclude Include="libjingle\talk\base\taskrunner.h" />
+    <ClInclude Include="libjingle\talk\base\thread.h" />
+    <ClInclude Include="libjingle\talk\base\timeutils.h" />
+    <ClInclude Include="libjingle\talk\base\win32.h" />
+    <ClInclude Include="libjingle\talk\base\win32socketserver.h" />
+    <ClInclude Include="libjingle\talk\base\win32window.h" />
+    <ClInclude Include="libjingle\talk\media\base\constants.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\candidate.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\constants.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\port.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\portinterface.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\sessiondescription.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\stun.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\stunrequest.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\transport.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\transportdescription.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\transportinfo.h" />
+    <ClInclude Include="libjingle\talk\xmllite\qname.h" />
+    <ClInclude Include="libjingle\talk\xmllite\xmlconstants.h" />
+    <ClInclude Include="libjingle\talk\xmllite\xmlelement.h" />
+    <ClInclude Include="libjingle\talk\xmpp\asyncsocket.h" />
+    <ClInclude Include="libjingle\talk\xmpp\constants.h" />
+    <ClInclude Include="libjingle\talk\xmpp\jid.h" />
+    <ClInclude Include="libjingle\talk\xmpp\presenceouttask.h" />
+    <ClInclude Include="libjingle\talk\xmpp\presencereceivetask.h" />
+    <ClInclude Include="libjingle\talk\xmpp\presencestatus.h" />
+    <ClInclude Include="libjingle\talk\xmpp\prexmppauth.h" />
+    <ClInclude Include="libjingle\talk\xmpp\receivetask.h" />
+    <ClInclude Include="libjingle\talk\xmpp\saslhandler.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppauth.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppclient.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppclientsettings.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppengine.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmpppump.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppsocket.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmpptask.h" />
+    <ClInclude Include="libjingle\talk\xmpp\xmppthread.h" />
+    <ClInclude Include="libjingle\xmllite\qname.h" />
+    <ClInclude Include="libjingle\xmllite\xmlconstants.h" />
+    <ClInclude Include="libjingle\xmllite\xmlelement.h" />
+    <ClInclude Include="libjingle\xmpp\jid.h" />
+    <ClInclude Include="libjingle\xmpp\receivetask.h" />
+    <ClInclude Include="libjingle\xmpp\xmppengine.h" />
+    <ClInclude Include="libjingle\xmpp\xmpptask.h" />
+    <ClInclude Include="MessageReceiverTask.h" />
+    <ClInclude Include="muc.h" />
+    <ClInclude Include="MyClient.h" />
+    <ClInclude Include="presencepushtask.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MessageReceiverTask.cpp" />
+    <ClCompile Include="Messaging.cpp" />
+    <ClCompile Include="MyClient.cpp" />
+    <ClCompile Include="presencepushtask.cc" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

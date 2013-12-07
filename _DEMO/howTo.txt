@@ -1,4 +1,4 @@
-1)	C++: Code generation: Runtime Library: Multi-threaded (/MT)
+1)	C++: Code generation: Runtime Library: Multi-threaded (/MT) or Multi-threaded Debug (/MTd)
 
 2)	Linker: Input: Additional Dependencies:
 	wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;%(AdditionalDependencies)

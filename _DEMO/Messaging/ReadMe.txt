@@ -1,6 +1,7 @@
-Demo app that allows to login and see changing list of contacts with actual statuses.
- Used resources: 
-   - "call" project from libjingle source.
+Demo that illustrates how user can login and receive messages from other users.
+Based on call application.
+
+After running this demo and specifying correct credentials, you should be able to receive messages from other contacts.
 
 To make this app work, please, put 
 expat.lib

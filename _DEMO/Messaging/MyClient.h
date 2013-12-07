@@ -5,6 +5,7 @@
 #include "libjingle\talk\xmpp\xmpppump.h"
 #include "libjingle\talk\xmpp\presenceouttask.h"
 #include "presencepushtask.h"
+#include "MessageReceiverTask.h"
 
 //-------------- additional classes/enums --------------------
 enum STATUS_ENUM
@@ -20,6 +21,7 @@ enum STATUS_ENUM
 typedef void (*LogEvent)(void* context, string message);
 typedef void (*LoginEvent)(void* context, buzz::XmppEngine::State state);
 typedef void (*StatusEvent)(void* context, string jid, STATUS_ENUM status);
+typedef void (*MessageEvent)(void* context, const Message& message);
 
 class MyClient : public sigslot::has_slots<>
 {
@@ -47,6 +49,7 @@ public:
 	void setLogListener(LogEvent logListener, void* context);
 	void setLoginListener(LoginEvent loginListener, void* context);
 	void setOthersStatusListener(StatusEvent statusListener, void* context);
+	void setMessageListener(MessageEvent messageListener, void* context);
 
 	bool isLoggedIn(){return isLoggedIn_;}
 
@@ -60,6 +63,7 @@ private:
 	void log(const char * data, int len);
 	void connectionStateChanged(const buzz::XmppEngine::State state);
 	void contactStatusChanged(const buzz::PresenceStatus& status);
+	void messageReceived(const Message& message);
 
 	string resourceName_;
 	string hostname_; 
@@ -75,6 +79,8 @@ private:
 
 	buzz::PresenceOutTask* presenceOutTask_;
 	buzz::PresencePushTask* presencePushTask_;
+	MessageReceiverTask* messageReceiverTask_;
+
 	buzz::XmppClient* xmppClient_;//we don't manage it, it's in responsibiilty of XmppPump.
 	buzz::PresenceStatus buzzStatus_;//we need to store status here instead of creating new one all the time as otherwise we have race condition between destructor and status sending...
 
@@ -86,5 +92,8 @@ private:
 
 	StatusEvent statusListener_;
 	void* statusListenerContext_;
+
+	MessageEvent messageListener_;
+	void* messageListenerContext_;
 };
 
