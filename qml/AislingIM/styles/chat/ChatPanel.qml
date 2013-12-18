@@ -132,7 +132,7 @@ Rectangle {
 
             ResizableEditArea {
                 id: chatMessageEdit
-                frame: false
+//                frame: false
                 highlightOnFocus: true
 
                 anchors {

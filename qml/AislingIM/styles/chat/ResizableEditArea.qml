@@ -38,8 +38,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.0
-import QtDesktop 1.0
+import QtQuick 2.1
+import QtQuick.Controls 1.0
+import QtQuick.Layouts 1.0
 
 /*!
     \qmltype TextArea
@@ -68,7 +69,7 @@ import QtDesktop 1.0
     \sa TextField, TextEdit
 */
 
-ScrollArea {
+ScrollView {
     id: area
 
     property alias paintedHeight: edit.paintedHeight
@@ -702,12 +703,12 @@ ScrollArea {
         edit.undo();
     }
 
-    color: syspal.base
+//    color: syspal.base
     width: 280
     height: 120
-    contentWidth: edit.paintedWidth + (2 * documentMargins)
+//    contentWidth: edit.paintedWidth + (2 * documentMargins)
     highlightOnFocus: true
-    frame: true
+//    frame: true
 
     Accessible.role: Accessible.EditableText
     // FIXME: probably implement text interface

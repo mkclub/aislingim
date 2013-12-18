@@ -1,5 +1,6 @@
-import QtQuick 2.0
-import QtDesktop 1.0
+import QtQuick 2.1
+import QtQuick.Controls 1.0
+import QtQuick.Layouts 1.0
 
 import "../../components"
 import "../../models"
@@ -8,9 +9,9 @@ Rectangle {
     id: chatMessageList
     property variant messageModel
 
-    ScrollArea {
+    ScrollView {
         id: scrollArea
-        frame: false
+//        frame: false
         anchors.fill: parent
 
         TextEdit {
