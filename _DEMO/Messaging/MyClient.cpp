@@ -120,7 +120,7 @@ void MyClient::login()
 	xcs.set_server(talk_base::SocketAddress(hostname_, port_));
 
 	// ========= 2. Register to receive signals from the XMPP pump to track sign in progress. =========
-	XmppPump pump;
+	buzz::XmppPump pump;
 	xmppClient_ = pump.client();//we will need this client in future.
 	pump.client()->SignalStateChange.connect(this, &MyClient::connectionStateChanged);
 	pump.client()->SignalLogInput.connect(this, &MyClient::log);
@@ -139,7 +139,7 @@ void MyClient::login()
 	//cout<<"Logging in... "<<endl;
 	
 
-	pump.DoLogin(xcs, new XmppSocket(buzz::TLS_REQUIRED), new XmppAuth());
+	pump.DoLogin(xcs, new buzz::XmppSocket(buzz::TLS_REQUIRED), new XmppAuth());
 
 	// ========= 6. Start the thread and run indefinitely. =========
 	main_thread_->Run();

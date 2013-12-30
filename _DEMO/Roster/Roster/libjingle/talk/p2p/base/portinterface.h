@@ -30,6 +30,7 @@
 
 #include <string>
 
+#include "libjingle\talk\base\dscp.h"
 #include "libjingle\talk\base\socketaddress.h"
 #include "libjingle\talk\p2p\base\transport.h"
 
@@ -64,11 +65,11 @@ class PortInterface {
   virtual IceProtocolType IceProtocol() const = 0;
 
   // Methods to set/get ICE role and tiebreaker values.
-  virtual void SetRole(TransportRole role) = 0;
-  virtual TransportRole Role() const = 0;
+  virtual void SetIceRole(IceRole role) = 0;
+  virtual IceRole GetIceRole() const = 0;
 
-  virtual void SetTiebreaker(uint64 tiebreaker) = 0;
-  virtual uint64 Tiebreaker() const = 0;
+  virtual void SetIceTiebreaker(uint64 tiebreaker) = 0;
+  virtual uint64 IceTiebreaker() const = 0;
 
   virtual bool SharedSocket() const = 0;
 
@@ -90,6 +91,7 @@ class PortInterface {
 
   // Functions on the underlying socket(s).
   virtual int SetOption(talk_base::Socket::Option opt, int value) = 0;
+  virtual int GetOption(talk_base::Socket::Option opt, int* value) = 0;
   virtual int GetError() = 0;
 
   virtual const std::vector<Candidate>& Candidates() const = 0;
@@ -97,7 +99,8 @@ class PortInterface {
   // Sends the given packet to the given address, provided that the address is
   // that of a connection or an address that has sent to us already.
   virtual int SendTo(const void* data, size_t size,
-                     const talk_base::SocketAddress& addr, bool payload) = 0;
+                     const talk_base::SocketAddress& addr,
+                     talk_base::DiffServCodePoint dscp, bool payload) = 0;
 
   // Indicates that we received a successful STUN binding request from an
   // address that doesn't correspond to any current connection.  To turn this
@@ -120,7 +123,7 @@ class PortInterface {
   sigslot::signal1<PortInterface*> SignalDestroyed;
 
   // Signaled when Port discovers ice role conflict with the peer.
-  sigslot::signal0<> SignalRoleConflict;
+  sigslot::signal1<PortInterface*> SignalRoleConflict;
 
   // Normally, packets arrive through a connection (or they result signaling of
   // unknown address).  Calling this method turns off delivery of packets

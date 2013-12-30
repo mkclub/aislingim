@@ -55,7 +55,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;Secur32.lib;Crypt32.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -81,7 +81,7 @@
       </IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
-      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;version.lib;msimg32.lib;ws2_32.lib;usp10.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;strmiids.lib;Strmiids.lib;dmoguids.lib;wmcodecdspuuid.lib;amstrmid.lib;msdmo.lib;Secur32.lib;Crypt32.lib;..\..\..\libjingle_libs\$(Configuration)\libjingle.lib;..\..\..\libjingle_libs\$(Configuration)\expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DelayLoadDLLs>
       </DelayLoadDLLs>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
@@ -100,6 +100,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libjingle\talk\base\asyncpacketsocket.h" />
     <ClInclude Include="libjingle\talk\base\asyncsocket.h" />
     <ClInclude Include="libjingle\talk\base\basicdefs.h" />
     <ClInclude Include="libjingle\talk\base\basictypes.h" />
@@ -107,15 +108,19 @@
     <ClInclude Include="libjingle\talk\base\bytebuffer.h" />
     <ClInclude Include="libjingle\talk\base\byteorder.h" />
     <ClInclude Include="libjingle\talk\base\common.h" />
+    <ClInclude Include="libjingle\talk\base\compile_assert.h" />
     <ClInclude Include="libjingle\talk\base\constructormagic.h" />
     <ClInclude Include="libjingle\talk\base\criticalsection.h" />
     <ClInclude Include="libjingle\talk\base\cryptstring.h" />
+    <ClInclude Include="libjingle\talk\base\dscp.h" />
     <ClInclude Include="libjingle\talk\base\helpers.h" />
     <ClInclude Include="libjingle\talk\base\ipaddress.h" />
     <ClInclude Include="libjingle\talk\base\linked_ptr.h" />
+    <ClInclude Include="libjingle\talk\base\logging.h" />
     <ClInclude Include="libjingle\talk\base\messagedigest.h" />
     <ClInclude Include="libjingle\talk\base\messagehandler.h" />
     <ClInclude Include="libjingle\talk\base\messagequeue.h" />
+    <ClInclude Include="libjingle\talk\base\move.h" />
     <ClInclude Include="libjingle\talk\base\network.h" />
     <ClInclude Include="libjingle\talk\base\packetsocketfactory.h" />
     <ClInclude Include="libjingle\talk\base\proxyinfo.h" />
@@ -130,11 +135,14 @@
     <ClInclude Include="libjingle\talk\base\ssladapter.h" />
     <ClInclude Include="libjingle\talk\base\sslfingerprint.h" />
     <ClInclude Include="libjingle\talk\base\sslidentity.h" />
+    <ClInclude Include="libjingle\talk\base\sslstreamadapter.h" />
+    <ClInclude Include="libjingle\talk\base\stream.h" />
     <ClInclude Include="libjingle\talk\base\stringencode.h" />
     <ClInclude Include="libjingle\talk\base\stringutils.h" />
     <ClInclude Include="libjingle\talk\base\task.h" />
     <ClInclude Include="libjingle\talk\base\taskparent.h" />
     <ClInclude Include="libjingle\talk\base\taskrunner.h" />
+    <ClInclude Include="libjingle\talk\base\template_util.h" />
     <ClInclude Include="libjingle\talk\base\thread.h" />
     <ClInclude Include="libjingle\talk\base\timeutils.h" />
     <ClInclude Include="libjingle\talk\base\win32.h" />
@@ -142,6 +150,7 @@
     <ClInclude Include="libjingle\talk\base\win32window.h" />
     <ClInclude Include="libjingle\talk\p2p\base\candidate.h" />
     <ClInclude Include="libjingle\talk\p2p\base\constants.h" />
+    <ClInclude Include="libjingle\talk\p2p\base\packetsocketfactory.h" />
     <ClInclude Include="libjingle\talk\p2p\base\port.h" />
     <ClInclude Include="libjingle\talk\p2p\base\portinterface.h" />
     <ClInclude Include="libjingle\talk\p2p\base\sessiondescription.h" />

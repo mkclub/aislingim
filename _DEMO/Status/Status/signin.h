@@ -6,6 +6,7 @@
 #include "libjingle\talk\xmpp\xmppengine.h"
 #include "libjingle\talk\xmpp\xmpppump.h"
 
+using namespace buzz;
 
 typedef void (*LogEvent)(void* context, string message);
 typedef void (*LoginEvent)(void* context, buzz::XmppEngine::State state);

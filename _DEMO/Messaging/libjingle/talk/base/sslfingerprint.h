@@ -47,9 +47,14 @@ struct SSLFingerprint {
       return NULL;
     }
 
+    return Create(algorithm, &(identity->certificate()));
+  }
+
+  static SSLFingerprint* Create(const std::string& algorithm,
+                                const talk_base::SSLCertificate* cert) {
     uint8 digest_val[64];
     size_t digest_len;
-    bool ret = identity->certificate().ComputeDigest(
+    bool ret = cert->ComputeDigest(
         algorithm, digest_val, sizeof(digest_val), &digest_len);
     if (!ret) {
       return NULL;
@@ -91,7 +96,7 @@ struct SSLFingerprint {
            digest == other.digest;
   }
 
-  std::string GetRfc4752Fingerprint() const {
+  std::string GetRfc4572Fingerprint() const {
     std::string fingerprint =
         talk_base::hex_encode_with_delimiter(
             digest.data(), digest.length(), ':');

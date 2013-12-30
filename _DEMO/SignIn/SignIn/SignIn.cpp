@@ -14,6 +14,7 @@
 #include "libjingle\talk\xmpp\xmppauth.h"
 
 using namespace std;
+using namespace buzz;
 
 ///
 /// Class that is used to react on log in events from server 
