@@ -2,12 +2,7 @@
 #define HELLO_WORLD_H
 
 #include <string>
-
-#ifdef AISLINGIMLIBJINGLE_EXPORTS
-#define AISLINGIMLIBJINGLE_API __declspec(dllexport)
-#else
-#define AISLINGIMLIBJINGLE_API __declspec(dllimport)
-#endif
+#include "definitions.h"
 
 AISLINGIMLIBJINGLE_API std::string hello(std::string name);
 
