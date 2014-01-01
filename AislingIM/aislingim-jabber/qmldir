@@ -1,0 +1,3 @@
+module AislingIMJabber
+plugin aislingim-jabber
+typeinfo plugins.qmltypes

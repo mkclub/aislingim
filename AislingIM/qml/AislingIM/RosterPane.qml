@@ -3,6 +3,8 @@ import QtQuick 2.1
 import "styles/roster"
 import "stubs"
 
+import AislingIMJabber 1.0
+
 Rectangle {
     id: roster
     width: 300
@@ -12,7 +14,11 @@ Rectangle {
         id: userTab
         anchors.top: parent.top
 
-        caption: "graywolf"
+        Hello {
+            id: hello
+        }
+
+        caption: hello.SayHello("graywolf") //"graywolf"
 
         ConnectionState {
             anchors.top: parent.top

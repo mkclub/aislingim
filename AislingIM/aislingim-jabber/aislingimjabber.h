@@ -4,18 +4,19 @@
 #include <QtQml\qqml.h>
 #include <QtQml/QQmlExtensionPlugin>
 
+#include "hello.h"
+
 class AislingIMJabber : public QQmlExtensionPlugin
 {
     Q_OBJECT
 #if QT_VERSION >= 0x050000
-    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QScriptExtensionInterface" FILE "aislingim-jabber.json")
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QQmlExtensionInterface" FILE "aislingim-jabber.json")
 #endif // QT_VERSION >= 0x050000
 
 public:
     void registerTypes(const char *uri)
     {
-        // TODO
-        //qmlRegisterType<MyModel>(uri, 1, 0, "MyModel");
+        qmlRegisterType<Hello>(uri, 1, 0, "Hello");  // @uri AislingIMJabber
     }
 };
 

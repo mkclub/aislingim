@@ -1,9 +1,8 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/AislingIM
-folder_01.target = qml
-DEPLOYMENTFOLDERS = folder_01
+#folder_01.source = qml/AislingIM
+#folder_01.target = qml
+#DEPLOYMENTFOLDERS = folder_01
 
-# Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
 # If your application uses the Qt Mobility libraries, uncomment the following
@@ -19,9 +18,20 @@ RC_FILE = main.rc
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-OTHER_FILES += \
-    qml/AislingIM/styles/roster/RosterIcon.qml \
-    qml/AislingIM/RosterPane.qml \
-    qml/AislingIM/styles/roster/RosterContactsItem.qml \
-    qml/AislingIM/LoginScreen.qml \
-    qml/AislingIM/styles/general/LabeledText.qml
+# Additional import path used to resolve QML modules in Creator's code model
+QML_IMPORT_PATH += "$$DESTDIR"
+
+CONFIG(debug, debug|release) {
+    BUILDCONFIG = "Debug"
+}
+CONFIG(release, debug|release) {
+    BUILDCONFIG = "Release"
+}
+
+BASEDIR = "$$PWD/../.."
+DESTDIR = "$$BASEDIR/aisling-build/$$BUILDCONFIG"
+
+qmlfiles.files = "qml/AislingIM"
+qmlfiles.path =  "$$DESTDIR/qml"
+
+INSTALLS += qmlfiles
