@@ -1,10 +1,13 @@
 #ifndef AISLINGIM_MESSAGE_H
 #define AISLINGIM_MESSAGE_H
 #include <string>
+#include "definitions.h"
 
 namespace aislingim_libjingle
 {
-	struct Message
+	
+
+	struct AISLINGIMLIBJINGLE_API Message
 	{
 	public:
 
@@ -25,6 +28,8 @@ namespace aislingim_libjingle
 		void setBody(const std::string& body){body_ = body;}
 	
 	private:
+		#pragma warning(push)
+		#pragma warning(disable: 4251)
 		std::string id_;
 		std::string encoding_;
 		std::string from_;
@@ -32,7 +37,7 @@ namespace aislingim_libjingle
 		bool isChatMessage_;
 		std::string subject_;
 		std::string body_;
-	
+		#pragma warning(pop)
 	};
 }
 #endif

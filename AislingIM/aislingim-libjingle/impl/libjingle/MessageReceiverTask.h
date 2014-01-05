@@ -1,14 +1,14 @@
 #pragma once
 
 #include "talk\xmpp\receivetask.h"
-#include "Message.h"
+#include "..\Message.h"
 
 namespace aislingim_libjingle
 {
 	class MessageReceiverTask : public buzz::ReceiveTask
 	{
 	public:
-		MessageReceiverTask(XmppTaskParentInterface* parent, bool printLogs);
+		MessageReceiverTask(XmppTaskParentInterface* parent);
 	
 		template<class desttype>
 		void onMessage(desttype* clazz, void (desttype::*pmemfun)(const Message&)){messageEventHandler_.connect(clazz, pmemfun);}
@@ -29,7 +29,6 @@ namespace aislingim_libjingle
 		void printElements(const buzz::XmlElement* child, size_t index);
 
 		// fields
-		bool printLogs_;
 		sigslot::signal1<const Message&> messageEventHandler_;
 	};
 }

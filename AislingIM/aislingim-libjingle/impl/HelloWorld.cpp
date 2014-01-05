@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "HelloWorld.h"
+#include "..\HelloWorld.h"
 #include "libjingle\talk\base\ssladapter.h"
 #include "libjingle\talk\xmpp\xmppthread.h"
 #include "libjingle\talk\base\win32socketserver.h"
