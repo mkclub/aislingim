@@ -125,15 +125,14 @@ void MyClient::login()
 	pump.client()->SignalStateChange.connect(this, &MyClient::connectionStateChanged);
 	pump.client()->SignalLogInput.connect(this, &MyClient::log);
 	pump.client()->SignalLogOutput.connect(this, &MyClient::log);
-
 	
 	//
 	// LOGGING IN
 	//
 	// ========= 3. Create the signaling thread. =========
-	talk_base::Win32Thread w32_thread;									//TODO: windows dependency.
-	talk_base::ThreadManager::Instance()->SetCurrentThread(&w32_thread);//TODO: windows dependency.
-	main_thread_ = talk_base::Thread::Current();		//TODO: windows dependency.
+	talk_base::AutoThread thread;									
+	talk_base::ThreadManager::Instance()->SetCurrentThread(&thread);
+	main_thread_ = talk_base::Thread::Current();		
 	
 	// ========= 4. Send the sign in request. =========
 	//cout<<"Logging in... "<<endl;
@@ -183,6 +182,26 @@ bool MyClient::waitLogin(int loginTimeout)
 }
 
 //----------------------------------OTHER METHODS ---------------------------------------
+
+class SetStatusMessageHandler : public talk_base::MessageHandler
+{
+private:
+	buzz::PresenceOutTask* presenceTaskToSend_;
+	buzz::PresenceStatus* statusToSend_;
+
+public:
+	SetStatusMessageHandler(buzz::PresenceOutTask* presenceTaskToSend, buzz::PresenceStatus* statusToSend)
+	{
+		presenceTaskToSend_ = presenceTaskToSend;
+		statusToSend_ = statusToSend;
+	}
+
+	virtual void OnMessage(talk_base::Message*) {
+		  presenceTaskToSend_->Send(*statusToSend_);
+	}
+
+	virtual ~SetStatusMessageHandler(){}
+};
 
 bool MyClient::setStatus(STATUS_ENUM status, string statusMessage)
 {
@@ -237,7 +256,10 @@ bool MyClient::setStatus(STATUS_ENUM status, string statusMessage)
 	if(presenceOutTask_ == nullptr)
 		cout<<"PRESENCE TASK IS NULL, what is unexpected."<<endl;
 	else
-		presenceOutTask_->Send(buzzStatus_);
+	{
+		SetStatusMessageHandler handler = SetStatusMessageHandler(presenceOutTask_, &buzzStatus_);
+		main_thread_->Send(&handler);
+	}
 
 	return true;
 }
@@ -284,17 +306,18 @@ void MyClient::connectionStateChanged(buzz::XmppEngine::State state)
 		else
 		{
 			//
-			// task that publishes our status.
-			//
-			presenceOutTask_ = new buzz::PresenceOutTask(xmppClient_);
-			presenceOutTask_->Start();
-
-			//
-			// task to get statuses of others.
+			// task to get statuses of others. 
+			// (must be started BEFORE starting and sending own presense to not miss any info)
 			//
 			presencePushTask_ = new buzz::PresencePushTask(xmppClient_);
 			presencePushTask_->SignalStatusUpdate.connect(this, &MyClient::contactStatusChanged);
 			presencePushTask_->Start();
+
+			//
+			// task that publishes our status.
+			//
+			presenceOutTask_ = new buzz::PresenceOutTask(xmppClient_);
+			presenceOutTask_->Start();
 
 			//
 			// Task to receive incoming messages

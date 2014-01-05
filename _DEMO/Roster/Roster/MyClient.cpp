@@ -171,6 +171,26 @@ bool MyClient::waitLogin(int loginTimeout)
 
 //----------------------------------OTHER METHODS ---------------------------------------
 
+class SetStatusMessageHandler : public talk_base::MessageHandler
+{
+private:
+	buzz::PresenceOutTask* presenceTaskToSend_;
+	buzz::PresenceStatus* statusToSend_;
+
+public:
+	SetStatusMessageHandler(buzz::PresenceOutTask* presenceTaskToSend, buzz::PresenceStatus* statusToSend)
+	{
+		presenceTaskToSend_ = presenceTaskToSend;
+		statusToSend_ = statusToSend;
+	}
+
+	virtual void OnMessage(talk_base::Message*) {
+		  presenceTaskToSend_->Send(*statusToSend_);
+	}
+
+	virtual ~SetStatusMessageHandler(){}
+};
+
 bool MyClient::setStatus(STATUS_ENUM status, string statusMessage)
 {
 	if(!isLoggedIn_)
@@ -223,7 +243,10 @@ bool MyClient::setStatus(STATUS_ENUM status, string statusMessage)
 	if(presenceOutTask_ == nullptr)
 		cout<<"PRESENCE TASK IS NULL, what is unexpected."<<endl;
 	else
-		presenceOutTask_->Send(buzzStatus_);
+	{
+		SetStatusMessageHandler handler = SetStatusMessageHandler(presenceOutTask_, &buzzStatus_);
+		main_thread_->Send(&handler);
+	}
 
 	return true;
 }

@@ -55,7 +55,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout<<"Logging in ("<<loginTimeout/1000<<" sec timeout)..."<<endl;
 		
 		client.loginAsync();
-		client.waitLogin(loginTimeout);//can use polling as well (just checking isLoggedIn method)
+		//client.waitLogin(loginTimeout);//can use polling as well (just checking isLoggedIn method)
+		while(!client.isLoggedIn())
+			Sleep(100);
 	}
 
 	cout<<"Setting status... ";
@@ -69,6 +71,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout<<"     ----=== COMPLETE. NOW YOU SHOULD SEE NEW INCOMING MESSAGES. ===----"<<endl
 		<<"PRESS ANY KEY TO SHUTDOWN THIS ALL STUFF."<<endl;
 
+	_getch();
+
+	//uncomment this to play with the status.
+	status = AWAY;
+	client.setStatus(status, statusMessage);
+	cout<<"NOW AWAY"<<endl;
+	_getch();
+
+	status = ONLINE;
+	client.setStatus(status, statusMessage);
+	cout<<"BACK ONLINE"<<endl;
 	_getch();
 
 	client.shutdown();
